@@ -9,7 +9,7 @@ config/git/           # ~/.config/git/{config,ignore} (symlinked)
 assets/ssh/           # ~/.ssh files (git-crypt encrypted, copied with 600 perms)
 assets/*.itermexport  # iTerm2 export (encrypted, import manually)
 assets/*.rayconfig    # Raycast export (encrypted, import manually)
-scripts/bootstrap.sh  # Homebrew + Brewfile + config links + Volta shims (+ SSH with --ssh)
+scripts/bootstrap.sh  # Homebrew + Brewfile + config links + Vite+ Node (+ SSH with --ssh)
 scripts/defaults.sh   # macOS preferences (Dock, keyboard, Finder, Touch ID sudo, ...)
 Makefile              # shortcuts: bootstrap, unlock, ssh, defaults, update, save-key
 ```
@@ -47,7 +47,7 @@ brew bundle cleanup --file Brewfile          # list installed things not in the 
 brew bundle dump --file - --no-vscode        # see what's installed, to copy lines into the Brewfile
 ```
 
-Node versions are managed by Volta (`volta install node@24`), Python versions by pyenv or uv.
+Node.js (and npm/pnpm/yarn) is managed by [Vite+](https://viteplus.dev/guide/env): `vp env default lts` for the global default, `vp env pin 24` in a project (writes `.node-version`), `vp env doctor` to check. Python versions by pyenv or uv.
 
 ## git-crypt key
 

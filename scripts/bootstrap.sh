@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Set up this Mac from the repo: Homebrew + Brewfile, config symlinks, SSH files.
+# Set up this Mac from the repo: Homebrew + Brewfile, config symlinks, Vite+ Node, SSH files.
 # Safe to re-run. Existing files that would be replaced are moved to *.backup-<timestamp>.
 #
 #   scripts/bootstrap.sh            # do it
@@ -83,15 +83,15 @@ else
   done
 fi
 
-# --- Node via Volta -------------------------------------------------------------
-say "Volta"
-if command -v volta >/dev/null 2>&1; then
-  shim="$(brew --prefix)/bin/volta-shim"
-  run mkdir -p "$HOME/.volta/bin"
-  for tool in node npm npx pnpm yarn yarnpkg; do
-    run ln -sfn "$shim" "$HOME/.volta/bin/$tool"
-  done
-  echo "    shims   ~/.volta/bin -> $shim"
+# --- Node via Vite+ ---------------------------------------------------------------
+say "Vite+ (Node.js)"
+if command -v vp >/dev/null 2>&1; then
+  run vp env setup          # shims in ~/.local/share/vite-plus/bin + shell loader
+  run vp env on             # managed mode: node/npm/pnpm/yarn come from Vite+, not Homebrew
+  run vp env default lts
+  run vp env install lts
+else
+  echo "    skip    vp not installed (it's in the Brewfile)"
 fi
 
 say "Done. Next: scripts/defaults.sh for macOS preferences (asks for sudo)."

@@ -10,6 +10,7 @@ tap "oven-sh/bun", trusted: true
 tap "steipete/tap"
 tap "stripe/stripe-cli", trusted: true
 tap "teamookla/speedtest"
+tap "voidzero-dev/vite-plus", "https://github.com/voidzero-dev/vite-plus", trusted: true
 
 # --- Shell & core CLI --------------------------------------------------------
 brew "coreutils"          # GNU tools, g-prefixed (gls, gnumfmt, ...)
@@ -35,11 +36,10 @@ brew "gitleaks"
 brew "bash"
 brew "bun"
 brew "go"
-brew "node@24"
 brew "pyenv"
 brew "python@3.12"
 brew "uv"
-brew "volta"              # Node toolchains (node/npm/pnpm/yarn shims)
+brew "voidzero-dev/vite-plus/vp"  # Vite+: Node.js + npm/pnpm/yarn via `vp env`
 cask "zulu@21"             # Java 21 JDK
 
 # --- Build deps --------------------------------------------------------------
