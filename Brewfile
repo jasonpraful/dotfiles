@@ -5,8 +5,6 @@
 tap "antoniorodr/memo"
 tap "hashicorp/tap", trusted: true
 tap "moul/moul", trusted: { formulae: ["totp-keychain"] }
-tap "openclaw/tap"
-tap "oven-sh/bun", trusted: true
 tap "steipete/tap"
 tap "stripe/stripe-cli", trusted: true
 tap "teamookla/speedtest"
@@ -95,7 +93,6 @@ brew "tesseract"
 brew "himalaya"
 brew "antoniorodr/memo/memo", trusted: true
 brew "moul/moul/totp-keychain", trusted: true
-brew "openclaw/tap/gogcli", trusted: true
 brew "teamookla/speedtest/speedtest", trusted: true
 
 # --- Fonts -------------------------------------------------------------------

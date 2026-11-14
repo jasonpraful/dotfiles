@@ -4,15 +4,20 @@ OP_ITEM ?= Nix-Config - Git Crypt
 OP_VAULT ?= Private
 KEY_FILE := .git/git-crypt/keys/default
 
-.PHONY: bootstrap ssh defaults update unlock save-key
+.PHONY: bootstrap ssh github-keys defaults update unlock save-key
 
 ## Install Homebrew + Brewfile, link configs
 bootstrap:
 	scripts/bootstrap.sh
 
-## Decrypt the repo, then copy assets/ssh/* into ~/.ssh
+## Decrypt the repo, copy assets/ssh/* into ~/.ssh, then give this Mac its own GitHub keys
 ssh: unlock
 	scripts/bootstrap.sh --ssh
+	scripts/github-keys.sh
+
+## Create/register this Mac's Secure Enclave GitHub keys (auth + signing). KEY_NAME="..." to name them
+github-keys:
+	scripts/github-keys.sh
 
 ## Apply macOS preferences (asks for sudo)
 defaults:

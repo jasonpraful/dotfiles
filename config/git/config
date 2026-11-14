@@ -31,3 +31,7 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
+# Machine-specific settings (e.g. commit signing), kept out of this repo. Ignored if missing.
+[include]
+	path = ~/.config/git/config.local

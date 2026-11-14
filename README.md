@@ -11,7 +11,8 @@ assets/*.itermexport  # iTerm2 export (encrypted, import manually)
 assets/*.rayconfig    # Raycast export (encrypted, import manually)
 scripts/bootstrap.sh  # Homebrew + Brewfile + config links + Vite+ Node (+ SSH with --ssh)
 scripts/defaults.sh   # macOS preferences (Dock, keyboard, Finder, Touch ID sudo, ...)
-Makefile              # shortcuts: bootstrap, unlock, ssh, defaults, update, save-key
+scripts/github-keys.sh # this Mac's own GitHub keys in the Secure Enclave (SSH auth + commit signing)
+Makefile              # shortcuts: bootstrap, unlock, ssh, github-keys, defaults, update, save-key
 ```
 
 ## New Mac
@@ -28,8 +29,9 @@ cd ~/.config/dotfiles
 make bootstrap
 
 # 4. Open 1Password, sign in, enable Settings → Developer → "Integrate with 1Password CLI".
-#    Then decrypt the repo (key comes from the 1Password document "Nix-Config - Git Crypt" (Private vault))
-#    and copy the SSH files into ~/.ssh (existing ones are backed up first)
+#    Then decrypt the repo (key comes from the 1Password document "Nix-Config - Git Crypt" (Private vault)),
+#    copy the SSH files into ~/.ssh (existing ones are backed up first), and create this Mac's own
+#    GitHub keys (asks for a name, e.g. "Personal Mac Mini", and two quick GitHub approvals)
 make ssh
 
 # 5. macOS preferences (asks for sudo)
@@ -52,3 +54,13 @@ Node.js (and npm/pnpm/yarn) is managed by [Vite+](https://viteplus.dev/guide/env
 ## git-crypt key
 
 `assets/ssh/*`, the iTerm2 export and the Raycast export are encrypted on GitHub. The key is stored in 1Password (Private vault) as the document **Nix-Config - Git Crypt**; `make unlock` fetches it and decrypts the repo. To (re)upload the key from an unlocked checkout: `make save-key`.
+
+## GitHub keys (per Mac)
+
+Each Mac gets its own GitHub keys, created in the Secure Enclave by `make github-keys` (also part of `make ssh`):
+
+- **`<name>`**: SSH authentication for `github.com`. **`<name> Signing`**: signs every commit and tag (shows as Verified).
+- The keys can't be exported and need no Touch ID or 1Password, so git works when the Mac is unattended. Revoke one Mac by deleting its keys on GitHub.
+- Only `github.com` uses them (`~/.ssh/config.local`); every other host still goes through the 1Password agent.
+- `gh` gets key-admin permission only while uploading, then it's removed again.
+- Machine-only files (not in this repo): `~/.ssh/config.local`, `~/.config/git/config.local`, `~/.config/git/allowed_signers`.
