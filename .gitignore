@@ -1,0 +1,5 @@
+.DS_Store
+Brewfile.local
+Brewfile.local.lock.json
+Brewfile.lock.json
+*.backup-*

@@ -1,0 +1,33 @@
+[user]
+	name = Jason Praful
+	email = jason.praful@gmail.com
+
+[init]
+	defaultBranch = main
+
+[push]
+	autoSetupRemote = true
+
+[sendpack]
+	sideband = false
+
+[core]
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+# GitHub over HTTPS uses the gh CLI's login (gh auth login); other hosts use the macOS Keychain.
+[credential "https://github.com"]
+	helper =
+	helper = !gh auth git-credential
+
+[credential "https://gist.github.com"]
+	helper =
+	helper = !gh auth git-credential
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
